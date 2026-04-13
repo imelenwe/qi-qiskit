@@ -24,3 +24,7 @@ Package	Version
 qiskit	1.4.3
 qiskit-aer	0.14.2
 qiskit-ibm-runtime	0.40.0
+
+Previously we had
+qiskit-ibm-runtime	0.23.0
+
