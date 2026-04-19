@@ -1,9 +1,10 @@
-from qiskit import QuantumCircuit, QuantumRegister
+from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
 from qiskit_aer import Aer
 # At the top of your utils file, add:
 from qiskit.quantum_info import Statevector
 import numpy as np
 import math as m
+from qiskit_aer import QasmSimulator
 
 
 S_simulator = Aer.get_backend('statevector_simulator')
@@ -235,4 +236,3 @@ def QFT_dag(num_qubits):
         qc.barrier()
 
     return qc
-
