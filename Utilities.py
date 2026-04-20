@@ -236,3 +236,34 @@ def QFT_dag(num_qubits):
         qc.barrier()
 
     return qc
+
+# inprogess has bugs
+# check deutsch-algo-v1
+def wavefunc(qc, precision=5, top_to_bottom=False):
+    sv = Statevector(qc).data
+    n = int(np.log2(len(sv)))
+    terms = []
+
+    for i, amp in enumerate(sv):
+        amp = round(amp.real, precision) + round(amp.imag, precision) * 1j
+        if amp == 0:
+            continue
+
+        bits = format(i, f'0{n}b')
+        if not top_to_bottom:
+            bits = bits[::-1]
+
+        if amp.real != 0 and amp.imag != 0:
+            amp_str = f"{amp.real}{amp.imag:+}j" #The :+ format spec forces an explicit sign, so positive gets + and negative gets -
+        elif amp.imag != 0:
+            amp_str = f"{amp.imag}j"
+        else:
+            amp_str = f"{amp.real}"
+        #print(f"amp_str: {amp_str}")
+        terms.append(f"{amp_str} |{bits}>")
+
+    out = terms[0]
+    for t in terms[1:]:
+        out += (' ' if t.startswith('-') else ' + ') + t
+    print(out)
+
